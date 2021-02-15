@@ -1,9 +1,17 @@
-const p7Decryptor = require('./app');
+const p7Encryptor = require('./encrypt')
+const p7Decryptor = require('./decrypt');
+const { PRIVATE_KEY_PATH } = require('./constants')
 
-const PRIVATE_KEY_PATH = './certificates/private.key'
-const EXAMPLE_ENCRYPTED_MSG = "MIAGCSqGSIb3DQEHA6CAMIACAQAxggFxMIIBbQIBADBVMD4xEzARBgoJkiaJk/IsZAEZFgNjb20xEzARBgoJkiaJk/IsZAEZFgNoYmwxEjAQBgNVBAMTCVJPT1RDQUhCTAITawAAABXk4oav9OF7CAAAAAAAFTANBgkqhkiG9w0BAQEFAASCAQCDQvXZQrG7wNcF//SVJGvkjZyiXW9bOHd/mNAjtvM2HammiYDqlzPA9BlNZCyIXxRCU9RC9mGYRYPApEKdYkaqi5TorAyLCcioHRm4GmqbRjkceWx4Vg4NT8DJIEduVa+Mn/hhiexMz1z3jmQgF2yp5JYRpoY0bTPnJ/QhW9QhMfq+FyXgrsuiVoYB1hFFtj1RqXV6TGxNc3wJxnS98jckVQ3JQKtzEBJjrZRzWEjuzgtcJc/jVgFUgQ86hSzRm1NiPMc0DBWNXdHHHXPeFnrae73qaZ0kd3pO0tlaIRu6VNj/ThdltVEjJ/f1B1AIqif31jOqC5Ua26WUtdHvaJobMIAGCSqGSIb3DQEHATAdBglghkgBZQMEASoEECoQmfMiNf6K5e6NUc6g86iggAQwQuYJRTeNuR4eXO0rU+I+BHIWp2CjyOM6U+efGhhw0j20RgF0RhoH+K7XeE33i6OjAAAAAAAAAAAAAA=="
+const EXAMPLE_RAW_MSG = "Simple Tutorial"
 
-console.log(p7Decryptor({
-    messageBody: EXAMPLE_ENCRYPTED_MSG,
+const encryptedMessage = p7Encryptor(EXAMPLE_RAW_MSG)
+const decryptedMessage = p7Decryptor({
+    messageBody: encryptedMessage,
     privateKeyFilePath: PRIVATE_KEY_PATH
-}))
+})
+
+console.log(`
+Original Msg  ===> ${EXAMPLE_RAW_MSG}\r\n
+ENCRYPTED Msg ===> ${encryptedMessage}\r\n
+DECRYPTED Msg ===> ${decryptedMessage}\r\n
+`)
